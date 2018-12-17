@@ -1,0 +1,75 @@
+{
+  "order": 0,
+  "index_patterns": [
+    "books*"
+  ],
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 0,
+    "analysis": {
+      "analyzer": {
+        "custom_snowball": {
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "english_snowball"
+          ]
+        }
+      },
+      "filter": {
+        "english_snowball": {
+          "type": "snowball",
+          "language": "english"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "book-item": {
+      "properties": {
+        "authors": {
+          "type": "text"
+        },
+        "categories": {
+          "type": "keyword"
+        },
+        "description": {
+          "type": "text",
+          "fields": {
+            "analyzed": {
+              "type": "text",
+              "analyzer": "custom_snowball"
+            }
+          }
+        },
+        "language": {
+          "type": "keyword"
+        },
+        "publishedDate": {
+          "type": "date"
+        },
+        "publisher": {
+          "type": "keyword"
+        },
+        "subtitle": {
+          "type": "text",
+          "fields": {
+            "analyzed": {
+              "type": "text",
+              "analyzer": "custom_snowball"
+            }
+          }
+        },
+        "title": {
+          "type": "text",
+          "fields": {
+            "analyzed": {
+              "type": "text",
+              "analyzer": "custom_snowball"
+            }
+          }
+        }
+      }
+    }
+  }
+}
