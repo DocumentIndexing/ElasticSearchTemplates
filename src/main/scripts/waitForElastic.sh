@@ -12,6 +12,6 @@ until curl --output /dev/null --silent --head --fail $ELASTIC_URL; do
         exit 2
     fi
     sleep 5
-    let COUNTER=COUNTER+1
+    COUNTER=$COUNTER+1
 done
 echo "Available"
