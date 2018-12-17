@@ -5,7 +5,7 @@
     <groupId>com.g4pas.index.document.elastic</groupId>
     <artifactId>IndexTemplates</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <properties>
         <maven.compiler.source>1.10</maven.compiler.source>
         <maven.compiler.target>1.10</maven.compiler.target>
@@ -86,7 +86,7 @@
     <scm>
         <connection>scm:git:git://github.com:DocumentIndexing/IndexTemplates.git</connection>
         <developerConnection>scm:git:git@github.com:DocumentIndexing/IndexTemplates.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>IndexTemplates-0.0.2</tag>
     </scm>
     <distributionManagement>
         <repository>
