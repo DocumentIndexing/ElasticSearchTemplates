@@ -38,6 +38,10 @@
                         <image>
                             <name>guidof/documentindexer-indextemplates:%l</name>
                             <build>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                    <tag>latest</tag>
+                                </tags>
                                 <assembly>
                                     <mode>dir</mode>
                                     <inline>
