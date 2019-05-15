@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.g4pas.index.document.elastic</groupId>
@@ -9,6 +10,8 @@
     <properties>
         <maven.compiler.source>1.10</maven.compiler.source>
         <maven.compiler.target>1.10</maven.compiler.target>
+            <dockerhub.project>guidof</dockerhub.project>
+            <dockerhub.image.name>documentindexer-indextemplates</dockerhub.image.name>
     </properties>
     <build>
         <plugins>
@@ -24,19 +27,13 @@
                         </goals>
                         <phase>package</phase>
                     </execution>
-                    <execution>
-                        <id>docker-push</id>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                    </execution>
+
                 </executions>
                 <configuration>
                     <verbose>true</verbose>
                     <images>
                         <image>
-                            <name>guidof/documentindexer-indextemplates:%l</name>
+                            <name>${dockerhub.image.name}</name>
                             <build>
                                 <tags>
                                     <tag>${project.version}</tag>
@@ -80,6 +77,45 @@
                         <version>1.8.1</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <id>tag-dockerhub-version</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${dockerhub.image.name}:${project.version}</image>
+                            <newName>${dockerhub.project}/${dockerhub.image.name}:${project.version}</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tag-dockerhub-latest</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${dockerhub.image.name}:${project.version}</image>
+                            <newName>${dockerhub.project}/${dockerhub.image.name}:latest</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${dockerhub.project}/${dockerhub.image.name}:${project.version}</imageName>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
