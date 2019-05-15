@@ -2,3 +2,4 @@
 # IntelliJ -specific stuff
 .idea/
 *.iml
+**/target/
